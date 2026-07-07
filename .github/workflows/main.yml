@@ -6,8 +6,8 @@ on:
       - main
 
 jobs:
-  build-and-push:
-    runs-on: ubuntu-latest
+  build-test-deploy:
+    runs-on: self-hosted
 
     steps:
       - name: Checkout Source Code
@@ -39,3 +39,9 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push daniyaalabbas/my-k8s-web:latest
+
+      - name: Deploy to Kubernetes
+        run: |
+          kubectl apply -f deployment.yml
+          kubectl rollout restart deployment my-k8s-web
+          kubectl rollout status deployment my-k8s-web
