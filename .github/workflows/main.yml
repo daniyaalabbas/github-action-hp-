@@ -6,9 +6,23 @@ on:
       - main
 
 jobs:
-  first-job:
+  build-and-test:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Print Welcome Message
-        run: echo "Hello Abbas! GitHub Actions is working."
+
+      - name: Checkout Source Code
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install Dependencies
+        run: |
+          pip install -r requirements.txt
+
+      - name: Test Application
+        run: |
+          python -c "import app; print('Application Loaded Successfully')"
