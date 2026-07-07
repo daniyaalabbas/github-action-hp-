@@ -10,7 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-
       - name: Checkout Source Code
         uses: actions/checkout@v4
 
@@ -26,3 +25,7 @@ jobs:
       - name: Test Application
         run: |
           python -c "import app; print('Application Loaded Successfully')"
+
+      - name: Build Docker Image
+        run: |
+          docker build -t my-k8s-web .
